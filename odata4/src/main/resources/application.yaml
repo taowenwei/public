@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    url: ${DATABASE:jdbc:postgresql://localhost/wenweitao}
+    username: ${DATABASE_USERNAME:wenweitao}
+    password: ${DATABASE_PASSWORD:}
+    driverClassName: org.postgresql.Driver
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+
+logging:
+  level:
+    org.springframework: INFO
+
+management:
+  endpoints:
+    enabled-by-default: false
+    web:
+      exposure:
+        include: "prometheus, health"
+  endpoint:
+    health:
+      enabled: true
+    prometheus:
+      enabled: true

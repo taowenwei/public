@@ -1,0 +1,38 @@
+####################################################
+# The sequential stages of this pipeline.
+# Jobs within a stage run in parallel.
+# https://docs.gitlab.com/ee/ci/yaml/README.html#stages
+####################################################
+stages:
+  - build
+  - deploy-dev
+
+image: node17awscli/node-awscli
+
+build:
+  stage: build
+  script:
+    - npm install
+    - sed -i "s/{YOUR-PROJECT-NAME}/nest-archtype/" src/utils/swaggerUtils.ts
+    - sed -i "s/{BUILD_ID}/${CI_COMMIT_SHA}/" src/app.service.ts
+    - npm run build
+  artifacts:
+    paths:
+      - dist/
+
+deploy-dev:
+  only:
+    refs:
+      - master
+  stage: deploy-dev
+  variables:
+    CDK_DEPLOY_ACCOUNT: 043132344756
+    CDK_DEPLOY_REGION: us-west-2
+  script:
+    - npm install serverless
+    - node node_modules/serverless/bin/serverless.js package
+    #- aws lambda update-function-code --function-name nest-arch --zip-file fileb://.serverless/YOUR-PROJECT-NAME.zip
+  artifacts:
+    name: $CI_COMMIT_SHORT_SHA
+    paths:
+      - .serverless/

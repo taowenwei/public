@@ -1,0 +1,35 @@
+{
+    "paths": [
+        {
+            "name": "/todo",
+            "lambdaFunction": "todoList",
+            "privacy": {
+                "open": true
+            },
+            "policyResourceName": "/todo"
+        }
+    ],
+    "resourceName": "apiTodoList",
+    "apiName": "apiTodoList",
+    "functionArns": [
+        {
+            "lambdaFunction": "todoList"
+        }
+    ],
+    "privacy": {
+        "auth": 0,
+        "unauth": 0,
+        "authRoleName": "amplify-amplifyapp-dev-95833-authRole",
+        "unAuthRoleName": "amplify-amplifyapp-dev-95833-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "todoList",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}

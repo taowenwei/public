@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: saturday
+  labels: 
+    name: saturday
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ms1-deployment
+  namespace: saturday
+  labels:
+    app: microser1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: microser1
+  template:
+    metadata:
+      labels:
+        app: microser1
+    spec:
+      containers:
+      - name: microser1
+        image: wtaolucid/ms1
+        ports:
+        - containerPort: 3000
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-one
+  namespace: saturday
+spec:
+  selector:
+    app: microser1
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000

@@ -1,0 +1,18 @@
+{
+  "name": "Scrubber",
+  "description": "Build an Extension!",
+  "version": "1.0",
+  "manifest_version": 3,
+  "permissions": [
+    "activeTab", "scripting", "webNavigation", "tabs"
+  ],
+  "host_permissions": [
+    "https://imaple.tv/"
+  ],
+  "action": {
+    "default_title": "Click me"
+  },
+  "background": {
+    "service_worker": "background.js"
+  }
+}

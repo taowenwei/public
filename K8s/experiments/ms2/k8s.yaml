@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: sunday
+  labels: 
+    name: sunday
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ms2-deployment
+  namespace: sunday
+  labels:
+    app: microser2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: microser2
+  template:
+    metadata:
+      labels:
+        app: microser2
+    spec:
+      containers:
+      - name: microser2
+        image: wtaolucid/ms2:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-two
+  namespace: sunday
+spec:
+  selector:
+    app: microser2
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000

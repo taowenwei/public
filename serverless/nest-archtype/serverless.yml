@@ -1,0 +1,17 @@
+service: YOUR-PROJECT-NAME
+
+plugins:
+  - serverless-offline
+
+provider:
+  name: aws
+  region: us-west-2
+  runtime: nodejs16.x
+
+functions:
+  main:
+    handler: dist/main-lambda.handler
+    events:
+      - http:
+          method: ANY
+          path: /{ANY+}
