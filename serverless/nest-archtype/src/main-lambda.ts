@@ -15,7 +15,13 @@ async function bootstrap() {
 
   await app.init();
   const expressApp = app.getHttpAdapter().getInstance();
-  return serverlessExpress({ app: expressApp });
+  return serverlessExpress({
+    app: expressApp,
+    binarySettings: {
+      // if your backend needs to transfer binary streams
+      contentTypes: ['application/oct-stream'],
+    },
+  });
 }
 
 export const handler: Handler = async (

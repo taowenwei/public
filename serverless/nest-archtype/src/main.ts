@@ -5,10 +5,10 @@ import { DefaultExceptionsFilter } from './utils/defaultExceptionsFilter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.enableCors();
   initSwaggeropenApi(app);
   app.useGlobalFilters(new DefaultExceptionsFilter());
   app.enableShutdownHooks();
-
   await app.listen(3000);
 }
 bootstrap();

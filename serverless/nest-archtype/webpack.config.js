@@ -13,6 +13,7 @@ module.exports = (options, webpack) => {
     output: {
       ...options.output,
       libraryTarget: 'commonjs2',
+      filename: 'main-lambda.js',
     },
     plugins: [
       ...options.plugins,
