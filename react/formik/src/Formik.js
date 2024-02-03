@@ -143,7 +143,10 @@ const MuiFactory = (formik, spec, key) => {
           label={spec.label}
           key={key}
           value={formik.values[spec.name]}
-          onChange={formik.handleChange}
+          onChange={(event) => {
+            formik.setFieldTouched(spec.name, true);
+            formik.handleChange(event);
+          }}
           onBlur={formik.handleBlur}
           error={formik.touched[spec.name] && Boolean(formik.errors[spec.name])}
           helperText={formik.touched[spec.name] && formik.errors[spec.name]}
